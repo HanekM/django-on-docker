@@ -1,7 +1,19 @@
-# VSCode
-.vscode
-.vscode/*
+# Docker related
+docker-compose*
 
-# Python envs
+# Local develepment artifacts
+env
 env/
+env/*
+
+venv
 venv/
+venv/*
+
+# MacOS files configuration
+.DS_Store
+
+# VSCode settings
+.vscode
+.vscode/
+.vscode/*
