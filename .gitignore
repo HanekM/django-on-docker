@@ -216,6 +216,7 @@ Temporary Items
 .apdisk
 
 ### VisualStudioCode
+.vscode/
 .vscode/*
 *.code-workspace
 
@@ -224,3 +225,7 @@ Temporary Items
 
 # Static for Django
 static/
+
+# env files
+.env.dev
+.env.prod

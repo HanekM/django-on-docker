@@ -1,0 +1,7 @@
+# VSCode
+.vscode
+.vscode/*
+
+# Python envs
+env/
+venv/
