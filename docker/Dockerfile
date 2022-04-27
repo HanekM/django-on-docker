@@ -1,7 +1,9 @@
 # pull official base image
 FROM python:3.8.2-slim-buster
 
-RUN apt-get update
+RUN apt-get update \
+    && apt-get install -y netcat postgresql gcc python3-dev musl-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 # set work directory
 WORKDIR /usr/src/project
@@ -10,7 +12,7 @@ RUN mkdir -p /usr/src/project/scripts
 # copy the starting scripts
 COPY scripts /usr/src/project/scripts
 RUN sed -i 's/\r//g' /usr/src/project/scripts/*
-RUN chmod +x /usr/src/project/scripts*
+RUN chmod +x /usr/src/project/scripts/*
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
