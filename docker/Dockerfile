@@ -6,7 +6,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # set work directory
-WORKDIR /usr/src/project
+ENV BASE_DIR=/usr/src/project
+WORKDIR $BASE_DIR
 
 RUN mkdir -p /usr/src/project/scripts
 # copy the starting scripts

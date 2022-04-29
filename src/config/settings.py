@@ -2,8 +2,8 @@ import os
 from pathlib import Path
 
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+ROOT_DIE = BASE_DIR.parent
 
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
@@ -88,10 +88,17 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "mediafiles"
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CSRF settings
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:1337"]
 
 
 # Celery - Redis settings

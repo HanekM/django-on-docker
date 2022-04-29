@@ -2,27 +2,47 @@ version: '3.8'
 
 volumes:
   postgres_data:
+  static_volume:
 
 networks:
+  main:
   postgres_network:
     driver: bridge
 
-
 services:
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.nginx
+    ports:
+      - 1337:80
+    volumes:
+      - static_volume:/usr/src/project/staticfiles
+    depends_on:
+      - web
+    networks:
+        main:
+            aliases:
+                - nginx
+
   web:
     build:
       context: .
       dockerfile: ./docker/Dockerfile
-    command: ['bash', '/usr/src/project/scripts/web_start.dev.sh']
+    command: ['bash', '/usr/src/project/scripts/web_start.prod.sh']
     volumes:
+      - static_volume:/usr/src/project/staticfiles
       - ./src:/usr/src/project/src/
       - ./scripts:/usr/src/project/scripts/
     networks:
-      - postgres_network
-    ports:
-      - 8000:8000
+      postgres_network:
+      main:
+        aliases:
+          - web
+    expose:
+      - "8000"
     env_file:
-      - ./.env.dev
+      - ./.env.prod
     depends_on:
       - postgres
 
@@ -46,7 +66,7 @@ services:
       dockerfile: ./docker/Dockerfile
     command: ['bash', '/usr/src/project/scripts/celery_start.dev.sh', '-t worker']
     env_file:
-      - .env.dev
+      - .env.prod
     volumes:
       - .:/usr/src/project
     depends_on:
@@ -59,7 +79,7 @@ services:
       dockerfile: ./docker/Dockerfile
     command: ['bash', '/usr/src/project/scripts/celery_start.dev.sh', '-t beat']
     env_file:
-      - .env.dev
+      - .env.prod
     volumes:
       - .:/usr/src/project
     depends_on:

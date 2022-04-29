@@ -225,6 +225,11 @@ Temporary Items
 
 # Static for Django
 static/
+staticfiles/
+
+# Media for Django
+media/
+mediafiles/
 
 # env files
 .env.dev
