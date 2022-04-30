@@ -5,7 +5,8 @@ volumes:
   static_volume:
 
 networks:
-  main:
+  nginx_network:
+    driver: bridge
   postgres_network:
     driver: bridge
 
@@ -17,13 +18,11 @@ services:
     ports:
       - 1337:80
     volumes:
-      - static_volume:/usr/src/project/staticfiles
+      - static_volume:/web/static/
     depends_on:
       - web
     networks:
-        main:
-            aliases:
-                - nginx
+      - nginx_network
 
   web:
     build:
@@ -31,14 +30,12 @@ services:
       dockerfile: ./docker/Dockerfile
     command: ['bash', '/usr/src/project/scripts/web_start.prod.sh']
     volumes:
-      - static_volume:/usr/src/project/staticfiles
-      - ./src:/usr/src/project/src/
+      - ./src/:/usr/src/project/src/
       - ./scripts:/usr/src/project/scripts/
+      - static_volume:/usr/src/project/src/staticfiles
     networks:
-      postgres_network:
-      main:
-        aliases:
-          - web
+      - postgres_network
+      - nginx_network
     expose:
       - "8000"
     env_file:
