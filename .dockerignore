@@ -17,3 +17,6 @@ venv/*
 .vscode
 .vscode/
 .vscode/*
+
+# Repository related
+README.md
