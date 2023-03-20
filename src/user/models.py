@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import AbstractUser
 
-from user.manager import CustomUserManager
+from user.managers import CustomUserManager
 
 
 class User(AbstractUser):

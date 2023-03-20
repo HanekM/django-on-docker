@@ -1,6 +1,12 @@
 # Docker related
 docker-compose*
 
+# Git related
+.git
+.git/
+.git/*
+.gitignore
+
 # Local develepment artifacts
 env
 env/
