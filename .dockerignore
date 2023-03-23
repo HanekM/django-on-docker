@@ -1,5 +1,9 @@
 # Docker related
 docker-compose*
+docker
+docker/
+docker/*
+.dockerignore
 
 # Git related
 .git
@@ -16,6 +20,10 @@ venv
 venv/
 venv/*
 
+virtualenv
+virtualenv/
+virtualenv/*
+
 # MacOS files configuration
 .DS_Store
 
@@ -24,5 +32,9 @@ venv/*
 .vscode/
 .vscode/*
 
+# Development env files
+.env.*
+
 # Repository related
 README.md
+CONTRIBUTING.MD
