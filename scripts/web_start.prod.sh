@@ -14,7 +14,6 @@ fi
 
 cd $BASE_DIR/src
 
-python manage.py collectstatic --noinput
 python manage.py migrate
-python manage.py createsuperuser --noinput
+python manage.py collectstatic --noinput
 gunicorn --config gunicorn_config.py config.wsgi:application --bind 0.0.0.0:8000

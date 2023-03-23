@@ -7,6 +7,6 @@ do
     esac
 done
 
-cd /usr/src/project/src
+cd $BASE_DIR/src
 
 celery -A config $type -l info
