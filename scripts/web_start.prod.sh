@@ -12,7 +12,7 @@ then
     echo "PostgreSQL started."
 fi
 
-cd $BASE_DIR/src
+cd ${BASE_DIR}/src
 
 python manage.py migrate
 python manage.py collectstatic --noinput

@@ -7,6 +7,6 @@ do
     esac
 done
 
-cd $BASE_DIR/src
+cd ${BASE_DIR}/src
 
-celery -A config $type -l info
+celery -A config $type -l INFO

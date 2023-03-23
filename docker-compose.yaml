@@ -13,10 +13,9 @@ services:
     build:
       context: .
       dockerfile: ./docker/Dockerfile
-    command: ['bash', '/usr/src/project/scripts/web_start.dev.sh']
+    command: "bash /project/scripts/web_start.dev.sh"
     volumes:
-      - ./src:/usr/src/project/src/
-      - ./scripts:/usr/src/project/scripts/
+      - ./src:/project/src/
     networks:
       - postgres_network
     ports:
@@ -44,11 +43,12 @@ services:
     build:
       context: .
       dockerfile: ./docker/Dockerfile
-    command: ['bash', '/usr/src/project/scripts/celery_start.dev.sh', '-t worker']
+    working_dir: /project
+    command: "bash ./scripts/celery_start.dev.sh -t worker"
     env_file:
       - .env.dev
     volumes:
-      - .:/usr/src/project
+      - .:/project
     depends_on:
       - postgres
       - redis
@@ -57,11 +57,12 @@ services:
     build:
       context: .
       dockerfile: ./docker/Dockerfile
-    command: ['bash', '/usr/src/project/scripts/celery_start.dev.sh', '-t beat']
+    working_dir: /project
+    command: "bash ./scripts/celery_start.dev.sh -t beat"
     env_file:
       - .env.dev
     volumes:
-      - .:/usr/src/project
+      - .:/project
     depends_on:
       - postgres
       - redis
