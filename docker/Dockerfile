@@ -1,10 +1,18 @@
 # pull official base image
-# FROM python:3.11.2-slim-buster AS base
+# FROM python:3.10-slim-buster AS base
 
-FROM python:3.8.2-slim-buster
+FROM python:3.11-slim-buster
 
-RUN apt-get update \
-    && apt-get install -y netcat postgresql gcc python3-dev musl-dev \
+RUN set -ex \
+    && RUN_DEPS=" \
+        mime-support \
+        postgresql-client \
+        pipenv \
+        netcat \
+        libpq-dev \
+        python-dev \
+    " \
+    && apt-get update && apt-get install -y --no-install-recommends $RUN_DEPS  \
     && rm -rf /var/lib/apt/lists/*
 
 # set work directory
@@ -12,14 +20,14 @@ ENV BASE_DIR=/project
 WORKDIR ${BASE_DIR}
 
 # make scripts directory & copy scripts & give permissions to be executed
-RUN mkdir -p ${BASE_DIR}/scripts
-COPY ./scripts ${BASE_DIR}/scripts
-RUN chmod +x ${BASE_DIR}/scripts/*
+RUN mkdir -p ./scripts
+COPY ./scripts ./scripts
+RUN chmod +x ./scripts/*
 
 # install dependencies
 RUN pip install --upgrade pip
-COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+ADD Pipfile Pipfile.lock ./
+RUN pipenv install -d --system --deploy
 
-# copy project
-COPY . .
+# copy your project code
+ADD . .

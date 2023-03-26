@@ -31,8 +31,8 @@ services:
     working_dir: /project
     command: "bash ./scripts/web_start.prod.sh"
     volumes:
-      - ./src/:/project/src/
-      - ./scripts:/project/scripts/
+      - ./src/:/project/src/:Z
+      - ./scripts:/project/scripts/:Z
       - static_volume:/project/src/staticfiles
     networks:
       - postgres_network
@@ -67,7 +67,7 @@ services:
     env_file:
       - .env.prod
     volumes:
-      - .:/project
+      - .:/project:Z
     depends_on:
       - postgres
       - redis
@@ -81,7 +81,7 @@ services:
     env_file:
       - .env.prod
     volumes:
-      - .:/project
+      - .:/project:Z
     depends_on:
       - postgres
       - redis

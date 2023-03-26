@@ -15,7 +15,7 @@ services:
       dockerfile: ./docker/Dockerfile
     command: "bash /project/scripts/web_start.dev.sh"
     volumes:
-      - ./src:/project/src/
+      - .:/project:Z
     networks:
       - postgres_network
     ports:
@@ -48,7 +48,7 @@ services:
     env_file:
       - .env.dev
     volumes:
-      - .:/project
+      - .:/project:Z
     depends_on:
       - postgres
       - redis
@@ -62,7 +62,7 @@ services:
     env_file:
       - .env.dev
     volumes:
-      - .:/project
+      - .:/project:Z
     depends_on:
       - postgres
       - redis

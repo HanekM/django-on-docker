@@ -36,5 +36,4 @@ virtualenv/*
 .env.*
 
 # Repository related
-README.md
-CONTRIBUTING.MD
+*.md

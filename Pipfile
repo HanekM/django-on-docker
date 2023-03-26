@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "~=4.1"
+djangorestframework = "*"
+celery = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
+redis = "*"
+
+[dev-packages]
+black = {extras = ["d"], version = "*"}
+flake8 = "*"
+coverage = "*"
+flake8-quotes = "*"
+flake8-no-pep420 = "*"
+flake8-implicit-str-concat = "*"
+flake8-simplify = "*"
+flake8-bugbear = "*"
