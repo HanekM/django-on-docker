@@ -8,7 +8,13 @@ from user.models import User
 class UserAdmin(BaseUserAdmin):
     ordering = ("-id",)
     list_display = (
-        "id", "email", "first_name", "last_name", "date_joined", "is_staff", "is_superuser"
+        "id",
+        "email",
+        "first_name",
+        "last_name",
+        "date_joined",
+        "is_staff",
+        "is_superuser",
     )
     search_fields = ("=id", "first_name", "last_name", "email__icontains")
     fieldsets = (

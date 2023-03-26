@@ -18,10 +18,10 @@
 #       range.
 #
 
-#bind = '127.0.0.1:8000'
+# bind = '127.0.0.1:8000'
 backlog = 30000
-errorlog = '-'
-loglevel = 'info'
+errorlog = "-"
+loglevel = "info"
 #
 # Worker processes
 #
@@ -70,31 +70,39 @@ loglevel = 'info'
 #       A positive integer. Generally set in the 1-5 seconds range.
 #
 
+
 def numCPUs():
     try:
         import multiprocessing
+
         return multiprocessing.cpu_count()
     except ImportError:
         import os
+
         if hasattr(os, "sysconf"):
             return os.sysconf("SC_NPROCESSORS_ONLN")
         return 1
 
-workers =  2 * numCPUs() + 1
-#worker_class = 'gunicorn.workers.ggevent.GeventWorker'
-#worker_class = 'gunicorn.workers.geventlet.EventletWorker'
+
+workers = 2 * numCPUs() + 1
+# worker_class = 'gunicorn.workers.ggevent.GeventWorker'
+# worker_class = 'gunicorn.workers.geventlet.EventletWorker'
 # worker_connections = 1000
 timeout = 60
 # keepalive = 2
 
+
 def post_fork(server, worker):
     server.log.info("Worker spawned (pid: %s)", worker.pid)
+
 
 def pre_fork(server, worker):
     pass
 
+
 def pre_exec(server):
     server.log.info("Forked child, re-executing.")
+
 
 def when_ready(server):
     server.log.info("Server is ready. Spawning workers")

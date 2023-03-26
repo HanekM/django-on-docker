@@ -1,5 +1,4 @@
 # pull official base image
-# FROM python:3.10-slim-buster AS base
 
 FROM python:3.11-slim-buster
 
