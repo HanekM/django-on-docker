@@ -31,8 +31,6 @@ services:
     working_dir: /project
     command: "bash ./scripts/web_start.prod.sh"
     volumes:
-      - ./src/:/project/src/:Z
-      - ./scripts:/project/scripts/:Z
       - static_volume:/project/src/staticfiles
     networks:
       - postgres_network
@@ -40,7 +38,7 @@ services:
     expose:
       - "8000"
     env_file:
-      - ./.env.prod
+      - .env.prod
     depends_on:
       - postgres
 
@@ -50,10 +48,8 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     networks:
       - postgres_network
-    environment:
-      - POSTGRES_DB=postgres-db
-      - POSTGRES_USER=postgres-admin
-      - POSTGRES_PASSWORD=(Lp,97QB#GGwd=u
+    env_file:
+      - .env.prod
 
   redis:
     image: redis
@@ -66,22 +62,6 @@ services:
     command: "bash ./scripts/celery_start.dev.sh -t worker"
     env_file:
       - .env.prod
-    volumes:
-      - .:/project:Z
-    depends_on:
-      - postgres
-      - redis
-
-  celery-beat:
-    build:
-      context: .
-      dockerfile: ./docker/Dockerfile
-    working_dir: /project
-    command: "bash ./scripts/celery_start.dev.sh -t beat"
-    env_file:
-      - .env.prod
-    volumes:
-      - .:/project:Z
     depends_on:
       - postgres
       - redis
